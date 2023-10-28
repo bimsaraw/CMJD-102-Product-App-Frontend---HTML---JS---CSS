@@ -1,6 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
     getProducts();
+    getCategories();
 });
+
+const getCategories = () => {
+    fetch("http://localhost:8081/categories")
+        .then((response) => {
+            return response.json();
+        }).then((data) => {
+            let categoryList = document.getElementById('categories');
+
+            data.map((category) => { //for each category loop
+                let listItem = document.createElement('li');
+                listItem.innerHTML = category.name;
+                listItem.onclick = getProductsByCategory();
+                
+                categoryList.appendChild(listItem);
+            });
+            
+        }).catch((error) => {
+            console.log(error);
+        });
+}
+
+const getProductsByCategory = (categoryId) => {
+    //Write the API request to get all products by the category: HOMEWORK
+}
 
 const getProducts = () => {
     fetch("http://localhost:8081/products")
